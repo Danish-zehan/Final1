@@ -1,6 +1,11 @@
+plugins {
+    id("com.android.application")
+    kotlin("android")
+}
+
 android {
     namespace = "com.example.final1"
-    compileSdk = 35 // Updated from 34 to 35
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.final1"
@@ -20,7 +25,11 @@ android {
                 "proguard-rules.pro"
             )
         }
+        debug {
+            isMinifyEnabled = false
+        }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
