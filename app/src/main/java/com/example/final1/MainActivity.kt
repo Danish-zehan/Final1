@@ -1,10 +1,14 @@
 package com.example.final1
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.*
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.ListView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,31 +16,43 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val editText: EditText = findViewById(R.id.editText)
         val listView: ListView = findViewById(R.id.listView)
-        val progressBar: ProgressBar = findViewById(R.id.progressBar)
-        val button: Button = findViewById(R.id.button)
+        // Set up ListView adapter and data here
 
-        val items = listOf("Item 1", "Item 2", "Item 3")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
-        listView.adapter = adapter
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val navView: NavigationView = findViewById(R.id.nav_view)
 
-        listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            val selectedItem = items[position]
-            Snackbar.make(listView, "Selected: $selectedItem", Snackbar.LENGTH_SHORT).show()
-        }
-
-        button.setOnClickListener {
-            val inputText = editText.text.toString()
-            if (inputText.isNotEmpty()) {
-                progressBar.visibility = View.VISIBLE
-                progressBar.postDelayed({
-                    progressBar.visibility = View.GONE
-                    Toast.makeText(this, "Task Completed with input: $inputText", Toast.LENGTH_SHORT).show()
-                }, 2000)
-            } else {
-                Snackbar.make(button, "Please enter text", Snackbar.LENGTH_SHORT).show()
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_favorites -> {
+                    startActivity(Intent(this, FavoritesActivity::class.java))
+                    true
+                }
+                else -> false
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_help -> {
+                showHelpDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showHelpDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Help")
+            .setMessage("Instructions on how to use the app.")
+            .setPositiveButton("OK", null)
+            .show()
     }
 }
