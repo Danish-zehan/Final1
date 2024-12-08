@@ -15,13 +15,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+    
         val listView: ListView = findViewById(R.id.listView)
         // Set up ListView adapter and data here
-
+    
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
-
+    
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_favorites -> {
@@ -55,4 +55,11 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("OK", null)
             .show()
     }
+}
+
+class R {
+    companion object {
+        val id: Any
+    }
+
 }
