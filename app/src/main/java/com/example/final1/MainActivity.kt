@@ -33,6 +33,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setContentView(activityMain: Any) {
+        TODO("Not yet implemented")
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
@@ -57,9 +61,16 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+private fun Any.onOptionsItemSelected(item: MenuItem): Boolean {
+
+}
+
 class R {
     companion object {
         val id: Any
+            get() {
+                TODO()
+            }
     }
 
 }
